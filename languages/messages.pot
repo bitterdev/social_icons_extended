@@ -1,0 +1,127 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: social_icons_extended 0.9.4\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2018-12-21 10:54+0100\n"
+"PO-Revision-Date: 2018-12-21T09:47:32+00:00\n"
+"Language: en_US\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 2.0.4\n"
+
+#: packages/social_icons_extended/controller.php:28
+msgid "Social Icons Extended"
+msgstr ""
+
+#: packages/social_icons_extended/controller.php:33
+msgid "Extend the social services on your site by any other social service. You can add an SVG icon for each defined service."
+msgstr ""
+
+#: packages/social_icons_extended/controller.php:46
+msgid "ZipArchive is required."
+msgstr ""
+
+#: packages/social_icons_extended/single_pages/dashboard/system/basics/social/extend/edit.php:31
+msgid "Handle"
+msgstr ""
+
+#: packages/social_icons_extended/single_pages/dashboard/system/basics/social/extend/edit.php:36
+#: packages/social_icons_extended/single_pages/dashboard/system/basics/social/extend.php:30
+msgid "Name"
+msgstr ""
+
+#: packages/social_icons_extended/single_pages/dashboard/system/basics/social/extend/edit.php:41
+msgid "SVG Icon"
+msgstr ""
+
+#: packages/social_icons_extended/single_pages/dashboard/system/basics/social/extend/edit.php:42
+msgid "Choose file"
+msgstr ""
+
+#: packages/social_icons_extended/single_pages/dashboard/system/basics/social/extend/edit.php:48
+#: packages/social_icons_extended/single_pages/dashboard/system/basics/social/extend.php:64
+msgid "Back"
+msgstr ""
+
+#: packages/social_icons_extended/single_pages/dashboard/system/basics/social/extend/edit.php:53
+msgid "Save"
+msgstr ""
+
+#: packages/social_icons_extended/single_pages/dashboard/system/basics/social/extend.php:22
+msgid "This page is blank because you have not defined any additional social links yet. Click on the »Add« button in the upper right corner of the toolbar to create a new link."
+msgstr ""
+
+#: packages/social_icons_extended/single_pages/dashboard/system/basics/social/extend.php:46
+msgid "Edit"
+msgstr ""
+
+#: packages/social_icons_extended/single_pages/dashboard/system/basics/social/extend.php:50
+msgid "Are you sure?"
+msgstr ""
+
+#: packages/social_icons_extended/single_pages/dashboard/system/basics/social/extend.php:51
+msgid "Remove"
+msgstr ""
+
+#: packages/social_icons_extended/elements/dashboard/help.php:15
+#, php-format
+msgid "If you need support please click <a href=\"%s\">here</a>."
+msgstr ""
+
+#: packages/social_icons_extended/elements/dashboard/install_post.php:26
+msgid "Thank You for purchasing this add-on!"
+msgstr ""
+
+#: packages/social_icons_extended/elements/dashboard/install_post.php:30
+msgid "Follow me on Twitter and Facebook to get the latest news and notifications about updates, new add-ons/themes and special offers."
+msgstr ""
+
+#: packages/social_icons_extended/elements/dashboard/install_post.php:41
+msgid "Follow @fabian_bitter"
+msgstr ""
+
+#: packages/social_icons_extended/elements/dashboard/reminder.php:27
+#, php-format
+msgid "Rate this add-on on concrete5.org and as a thank-you gift can choose another add-on of mine up to $35. This offer may only be claimed once. Click <a href=\"%s\" class=\"alert-link\"> here </a> to rate now."
+msgstr ""
+
+#: packages/social_icons_extended/controllers/single_page/dashboard/system/basics/social/extend.php:56
+msgid "You have to enter a handle."
+msgstr ""
+
+#: packages/social_icons_extended/controllers/single_page/dashboard/system/basics/social/extend.php:66
+msgid "The entered handle is already in use."
+msgstr ""
+
+#: packages/social_icons_extended/controllers/single_page/dashboard/system/basics/social/extend.php:70
+msgid "You have to enter a name."
+msgstr ""
+
+#: packages/social_icons_extended/controllers/single_page/dashboard/system/basics/social/extend.php:81
+msgid "Invalid file format. Only SVG files are allowed."
+msgstr ""
+
+#: packages/social_icons_extended/controllers/single_page/dashboard/system/basics/social/extend.php:84
+msgid "The selected file has no approved version."
+msgstr ""
+
+#: packages/social_icons_extended/controllers/single_page/dashboard/system/basics/social/extend.php:87
+msgid "You have to select a icon file."
+msgstr ""
+
+#: packages/social_icons_extended/controllers/single_page/dashboard/system/basics/social/extend.php:91
+msgid "You need an active internet connection."
+msgstr ""
+
+#: packages/social_icons_extended/src/Bitter/SocialIconsExtended/Installer/Installer.php:26
+msgid "Extend"
+msgstr ""
+
+#: packages/social_icons_extended/src/Bitter/SocialIconsExtended/Controllers/HeaderController.php:125
+msgid "Add"
+msgstr ""

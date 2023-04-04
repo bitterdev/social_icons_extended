@@ -1,0 +1,8 @@
+/node_modules
+/bower_components
+/package-lock.json
+/vendor
+/composer.lock
+/dist
+/build
+/nbproject/private/

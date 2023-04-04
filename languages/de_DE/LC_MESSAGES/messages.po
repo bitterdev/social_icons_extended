@@ -1,0 +1,126 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: social_icons_extended 0.9.4\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2018-12-21 10:55+0100\n"
+"PO-Revision-Date: 2018-12-21 11:01+0100\n"
+"Language: de_DE\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 2.0.4\n"
+
+#: packages/social_icons_extended/controller.php:28
+msgid "Social Icons Extended"
+msgstr "Social Icons Extended"
+
+#: packages/social_icons_extended/controller.php:33
+msgid "Extend the social services on your site by any other social service. You can add an SVG icon for each defined service."
+msgstr "Erweitern Sie die sozialen Dienste auf Ihrer Website um weitere soziale Dienste. Sie können für jeden definierten Dienst ein SVG-Symbol hinzufügen."
+
+#: packages/social_icons_extended/controller.php:46
+msgid "ZipArchive is required."
+msgstr "ZipArchive wird benötigt."
+
+#: packages/social_icons_extended/single_pages/dashboard/system/basics/social/extend/edit.php:31
+msgid "Handle"
+msgstr "Bezeichnung"
+
+#: packages/social_icons_extended/single_pages/dashboard/system/basics/social/extend/edit.php:36
+#: packages/social_icons_extended/single_pages/dashboard/system/basics/social/extend.php:30
+msgid "Name"
+msgstr "Name"
+
+#: packages/social_icons_extended/single_pages/dashboard/system/basics/social/extend/edit.php:41
+msgid "SVG Icon"
+msgstr "SVG Icon"
+
+#: packages/social_icons_extended/single_pages/dashboard/system/basics/social/extend/edit.php:42
+msgid "Choose file"
+msgstr "Datei wählen"
+
+#: packages/social_icons_extended/single_pages/dashboard/system/basics/social/extend/edit.php:48
+#: packages/social_icons_extended/single_pages/dashboard/system/basics/social/extend.php:64
+msgid "Back"
+msgstr "Zurück"
+
+#: packages/social_icons_extended/single_pages/dashboard/system/basics/social/extend/edit.php:53
+msgid "Save"
+msgstr "Speichern"
+
+#: packages/social_icons_extended/single_pages/dashboard/system/basics/social/extend.php:22
+msgid "This page is blank because you have not defined any additional social links yet. Click on the »Add« button in the upper right corner of the toolbar to create a new link."
+msgstr "Diese Seite ist leer, da Sie noch keine zusätzlichen sozialen Links definiert haben. Klicken Sie auf die Schaltfläche »Hinzufügen« in der rechten oberen Ecke der Symbolleiste, um einen neuen Link zu erstellen."
+
+#: packages/social_icons_extended/single_pages/dashboard/system/basics/social/extend.php:46
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: packages/social_icons_extended/single_pages/dashboard/system/basics/social/extend.php:50
+msgid "Are you sure?"
+msgstr "Sind Sie sicher?"
+
+#: packages/social_icons_extended/single_pages/dashboard/system/basics/social/extend.php:51
+msgid "Remove"
+msgstr "Entfernen"
+
+#: packages/social_icons_extended/elements/dashboard/help.php:15
+#, php-format
+msgid "If you need support please click <a href=\"%s\">here</a>."
+msgstr "Wenn Sie Hilfe benötigen klicken Sie <a href=\"%s\">hier</a>."
+
+#: packages/social_icons_extended/elements/dashboard/install_post.php:26
+msgid "Thank You for purchasing this add-on!"
+msgstr "Vielen Dank für den Kauf dieses Add-Ons!"
+
+#: packages/social_icons_extended/elements/dashboard/install_post.php:30
+msgid "Follow me on Twitter and Facebook to get the latest news and notifications about updates, new add-ons/themes and special offers."
+msgstr "Folgen Sie mir auf Twitter und Facebook, um die neuesten Nachrichten und Benachrichtigungen zu Updates, neue Add-ons / Themes und Sonderangeboten zu erhalten."
+
+#: packages/social_icons_extended/elements/dashboard/install_post.php:41
+msgid "Follow @fabian_bitter"
+msgstr "Folge @fabian_bitter"
+
+#: packages/social_icons_extended/elements/dashboard/reminder.php:27
+#, php-format
+msgid "Rate this add-on on concrete5.org and as a thank-you gift can choose another add-on of mine up to $35. This offer may only be claimed once. Click <a href=\"%s\" class=\"alert-link\"> here </a> to rate now."
+msgstr "Bewerten Sie diese Erweiterung auf concrete5.org und wählen Sie als Dankeschön ein andere Erweiterung von mir bis zu 35 USD kostenlos aus. Dieses Angebot kann nur einmal in Anspruch genommen werden. Klicken Sie <a href=\"%s\" class=\"alert-link\"> hier </a>, um jetzt zu bewerten."
+
+#: packages/social_icons_extended/controllers/single_page/dashboard/system/basics/social/extend.php:56
+msgid "You have to enter a handle."
+msgstr "Sie müssen eine Bezeichnung eingeben."
+
+#: packages/social_icons_extended/controllers/single_page/dashboard/system/basics/social/extend.php:66
+msgid "The entered handle is already in use."
+msgstr "Die eingegebene Bezeichnung ist bereits in Verwendung."
+
+#: packages/social_icons_extended/controllers/single_page/dashboard/system/basics/social/extend.php:70
+msgid "You have to enter a name."
+msgstr "Sie müssen einen Namen eingeben."
+
+#: packages/social_icons_extended/controllers/single_page/dashboard/system/basics/social/extend.php:81
+msgid "Invalid file format. Only SVG files are allowed."
+msgstr "Ungültiges Dateiformat. Es sind nur SVG-Dateien zulässig."
+
+#: packages/social_icons_extended/controllers/single_page/dashboard/system/basics/social/extend.php:84
+msgid "The selected file has no approved version."
+msgstr "Die ausgewählte Datei hat keine genehmigte Version."
+
+#: packages/social_icons_extended/controllers/single_page/dashboard/system/basics/social/extend.php:87
+msgid "You have to select a icon file."
+msgstr "Sie müssen eine Icon-Datei auswählen."
+
+#: packages/social_icons_extended/controllers/single_page/dashboard/system/basics/social/extend.php:91
+msgid "You need an active internet connection."
+msgstr "Sie benötigen eine aktive Internetverbindung."
+
+#: packages/social_icons_extended/src/Bitter/SocialIconsExtended/Installer/Installer.php:26
+msgid "Extend"
+msgstr "Erweitern"
+
+#: packages/social_icons_extended/src/Bitter/SocialIconsExtended/Controllers/HeaderController.php:125
+msgid "Add"
+msgstr "Hinzufügen"
