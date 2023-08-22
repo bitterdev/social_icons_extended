@@ -13,7 +13,7 @@ defined('C5_EXECUTE') or die("Access Denied.");
 ?>
 
 <div class="btn-group">
-    <a href="<?php echo $url; ?>" class="btn btn-success">
+    <a href="<?php echo $url; ?>" class="btn btn-primary">
         <i class="fa fa-<?php echo $faIconClass; ?>"></i> <?php echo $label; ?>
     </a>
 </div>

@@ -8,16 +8,13 @@
  * @version    X.X.X
  */
 
-defined('C5_EXECUTE') or die('Access Denied.');
+use Concrete\Core\Support\Facade\Url;
 
-View::element('/dashboard/help', null, 'social_icons_extended');
-View::element('/dashboard/reminder', array("packageHandle" => "social_icons_extended", "rateUrl" => "https://www.concrete5.org/marketplace/addons/social-icons-extended/reviews"), 'social_icons_extended');
+defined('C5_EXECUTE') or die('Access Denied.');
 
 /** @var $socialIcons \Bitter\SocialIconsExtended\Entity\SocialIcon[] */
 
 ?>
-
-<?php \Concrete\Core\View\View::element('/dashboard/license_check', array("packageHandle" => "social_icons_extended"), 'social_icons_extended'); ?>
 
 <?php if (count($socialIcons) == 0): ?>
     <div class="alert alert-warning">
@@ -43,8 +40,8 @@ View::element('/dashboard/reminder', array("packageHandle" => "social_icons_exte
                     </td>
 
                     <td>
-                        <div class="pull-right">
-                            <a href="<?php echo $this->action("edit", $socialIcon->getId()); ?>" class="btn btn-default">
+                        <div class="float-end">
+                            <a href="<?php echo $this->action("edit", $socialIcon->getId()); ?>" class="btn btn-secondary">
                                 <i class="fa fa-pencil"></i> <?php echo t("Edit"); ?>
                             </a>
 
@@ -60,11 +57,9 @@ View::element('/dashboard/reminder', array("packageHandle" => "social_icons_exte
     </table>
 <?php endif; ?>
 
-<?php \Concrete\Core\View\View::element('/dashboard/did_you_know', array("packageHandle" => "social_icons_extended"), 'social_icons_extended'); ?>
-
 <div class="ccm-dashboard-form-actions-wrapper">
     <div class="ccm-dashboard-form-actions">
-        <a href="<?php echo URL::to("/dashboard/system/basics/social"); ?>" class="btn btn-default">
+        <a href="<?php echo Url::to("/dashboard/system/basics/social"); ?>" class="btn btn-default">
             <i class="fa fa-chevron-left"></i> <?php echo t('Back'); ?>
         </a>
     </div>

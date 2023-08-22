@@ -17,8 +17,8 @@ use Concrete\Core\Package\Package;
 class Controller extends Package
 {
     protected $pkgHandle = 'social_icons_extended';
-    protected $pkgVersion = '1.1.0';
-    protected $appVersionRequired = '8.4.1';
+    protected $pkgVersion = '1.5.0';
+    protected $appVersionRequired = '9.0.0';
     protected $pkgAutoloaderRegistries = [
         'src/Bitter/SocialIconsExtended' => 'Bitter\SocialIconsExtended',
     ];
