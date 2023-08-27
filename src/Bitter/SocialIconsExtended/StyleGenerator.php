@@ -14,6 +14,7 @@ use Bitter\SocialIconsExtended\Entity\SocialIcon;
 use Concrete\Core\Application\Application;
 use Concrete\Core\Entity\File\File;
 use Concrete\Core\Entity\File\Version;
+use Concrete\Core\Site\Service;
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManager;
 
@@ -43,12 +44,16 @@ class StyleGenerator
         /*
          * Check if CSS is already cached?
          */
-        $cacheObject = $this->expensiveCache->getItem("SocialIconsExtended/CssCache");
+        /** @var Service $siteService */
+        $siteService = $this->app->make(Service::class);
+        $site = $siteService->getSite();
+
+        $cacheObject = $this->expensiveCache->getItem("SocialIconsExtended/CssCache/" . $site->getSiteID());
 
         if ($cacheObject->isMiss()) {
 
             /** @var $socialIcons SocialIcon[] */
-            $socialIcons = $this->entityManager->getRepository(SocialIcon::class)->findAll();
+            $socialIcons = $this->entityManager->getRepository(SocialIcon::class)->findBy(["site" => $site]);
 
             /*
              * Generate the CSS

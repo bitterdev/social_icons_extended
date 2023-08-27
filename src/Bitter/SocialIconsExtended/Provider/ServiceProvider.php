@@ -10,10 +10,12 @@
 
 namespace Bitter\SocialIconsExtended\Provider;
 
+use Bitter\SocialIconsExtended\RouteList;
 use Concrete\Core\Application\Application;
 use Concrete\Core\Application\ApplicationAwareInterface;
 use Concrete\Core\Application\ApplicationAwareTrait;
 use Concrete\Core\Package\PackageService;
+use Concrete\Core\Site\Service;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Concrete\Core\Routing\RouterInterface;
 use Concrete\Core\Support\Facade\Url;
@@ -56,11 +58,14 @@ class ServiceProvider implements ApplicationAwareInterface
 
             $items = [];
 
+            /** @var Service $siteService */
+            $siteService = $this->app->make(Service::class);
+            $site = $siteService->getSite();
+
             /** @var $socialIcons SocialIcon[] */
-            $socialIcons = $this->entityManager->getRepository(SocialIcon::class)->findAll();
+            $socialIcons = $this->entityManager->getRepository(SocialIcon::class)->findBy(["site" => $site]);
 
             foreach ($socialIcons as $socialIcon) {
-
                 if ($socialIcon->getIcon() instanceof File) {
                     // Get the approved version of file object
                     $iconFileVersion = $socialIcon->getIcon()->getApprovedVersion();
@@ -139,32 +144,8 @@ class ServiceProvider implements ApplicationAwareInterface
             );
         });
 
-        $this->router->register("/bitter/social_icons_extended/reminder/hide", function () {
-            $this->pkg->getConfig()->save('reminder.hide', true);
-            $app = \Concrete\Core\Support\Facade\Application::getFacadeApplication();
-            /** @var $responseFactory \Concrete\Core\Http\ResponseFactory */
-            $responseFactory = $app->make(\Concrete\Core\Http\ResponseFactory::class);
-            $responseFactory->create("", \Concrete\Core\Http\Response::HTTP_OK)->send();
-            $app->shutdown();
-        });
-
-        $this->router->register("/bitter/social_icons_extended/did_you_know/hide", function () {
-            $this->pkg->getConfig()->save('did_you_know.hide', true);
-            $app = \Concrete\Core\Support\Facade\Application::getFacadeApplication();
-            /** @var $responseFactory \Concrete\Core\Http\ResponseFactory */
-            $responseFactory = $app->make(\Concrete\Core\Http\ResponseFactory::class);
-            $responseFactory->create("", \Concrete\Core\Http\Response::HTTP_OK)->send();
-            $app->shutdown();
-        });
-
-        $this->router->register("/bitter/social_icons_extended/license_check/hide", function () {
-            $this->pkg->getConfig()->save('license_check.hide', true);
-            $app = \Concrete\Core\Support\Facade\Application::getFacadeApplication();
-            /** @var $responseFactory \Concrete\Core\Http\ResponseFactory */
-            $responseFactory = $app->make(\Concrete\Core\Http\ResponseFactory::class);
-            $responseFactory->create("", \Concrete\Core\Http\Response::HTTP_OK)->send();
-            $app->shutdown();
-        });
+        $list = new RouteList();
+        $list->loadRoutes($this->router);
     }
 
 }

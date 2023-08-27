@@ -20,7 +20,9 @@ $app = \Concrete\Core\Support\Facade\Application::getFacadeApplication();
 $fileManager = $app->make('helper/concrete/file_manager');
 
 ?>
-
+<div class="ccm-dashboard-header-buttons">
+    <?php \Concrete\Core\View\View::element("dashboard/help", [], "social_icons_extended"); ?>
+</div>
 
 <form action="#" method="post">
     <?php echo $token->output('save_icon'); ?>

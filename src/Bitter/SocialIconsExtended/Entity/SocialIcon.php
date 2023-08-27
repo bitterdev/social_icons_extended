@@ -38,6 +38,14 @@ class SocialIcon
     protected $icon = null;
 
     /**
+     * @ORM\ManyToOne(targetEntity="\Concrete\Core\Entity\Site\Site")
+     * @ORM\JoinColumn(name="siteID", referencedColumnName="siteID", onDelete="CASCADE")
+     *
+     * @var \Concrete\Core\Entity\Site\Site|null
+     */
+    protected $site = null;
+
+    /**
      * @ORM\Column(type="string", length=255)
      *
      * @var string
@@ -129,6 +137,24 @@ class SocialIcon
     public function getFontAwesomeHandle()
     {
         return str_replace("_", "-", $this->handle);
+    }
+
+    /**
+     * @return \Concrete\Core\Entity\Site\Site|null
+     */
+    public function getSite(): ?\Concrete\Core\Entity\Site\Site
+    {
+        return $this->site;
+    }
+
+    /**
+     * @param \Concrete\Core\Entity\Site\Site|null $site
+     * @return SocialIcon
+     */
+    public function setSite(?\Concrete\Core\Entity\Site\Site $site): SocialIcon
+    {
+        $this->site = $site;
+        return $this;
     }
 
 }

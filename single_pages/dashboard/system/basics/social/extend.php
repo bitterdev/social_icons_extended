@@ -59,7 +59,7 @@ defined('C5_EXECUTE') or die('Access Denied.');
 
 <div class="ccm-dashboard-form-actions-wrapper">
     <div class="ccm-dashboard-form-actions">
-        <a href="<?php echo Url::to("/dashboard/system/basics/social"); ?>" class="btn btn-default">
+        <a href="<?php echo Url::to("/dashboard/system/basics/social"); ?>" class="btn btn-secondary">
             <i class="fa fa-chevron-left"></i> <?php echo t('Back'); ?>
         </a>
     </div>

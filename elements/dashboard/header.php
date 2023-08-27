@@ -13,6 +13,8 @@ defined('C5_EXECUTE') or die("Access Denied.");
 ?>
 
 <div class="btn-group">
+    <?php \Concrete\Core\View\View::element("dashboard/help", [], "social_icons_extended"); ?>
+
     <a href="<?php echo $url; ?>" class="btn btn-primary">
         <i class="fa fa-<?php echo $faIconClass; ?>"></i> <?php echo $label; ?>
     </a>

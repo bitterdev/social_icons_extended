@@ -17,13 +17,13 @@ use Concrete\Core\File\File;
 use Concrete\Core\Http\Request;
 use Concrete\Core\Http\Response;
 use Concrete\Core\Http\ResponseFactoryInterface;
-use Concrete\Core\Page\Controller\DashboardPageController;
+use Concrete\Core\Page\Controller\DashboardSitePageController;
 use Concrete\Core\Support\Facade\Url;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 
-class Extend extends DashboardPageController
+class Extend extends DashboardSitePageController
 {
-    /** @var EntityManager */
+    /** @var EntityManagerInterface */
     protected $entityManager;
     /** @var ResponseFactoryInterface */
     protected $responseFactory;
@@ -36,7 +36,7 @@ class Extend extends DashboardPageController
     {
         parent::on_start();
 
-        $this->entityManager = $this->app->make(EntityManager::class);
+        $this->entityManager = $this->app->make(EntityManagerInterface::class);
         $this->responseFactory = $this->app->make(ResponseFactoryInterface::class);
         $this->request = $this->app->make(Request::class);
         $this->stringValidator = $this->app->make("helper/validation/strings");
@@ -106,6 +106,7 @@ class Extend extends DashboardPageController
              * Update Entry
              */
 
+            $socialIcon->setSite($this->getSite());
             $socialIcon->setName($this->request->request->get("name"));
             $socialIcon->setHandle($this->request->request->get("handle"));
             $socialIcon->setIcon(File::getByID($this->request->request->get("icon")));
@@ -147,6 +148,7 @@ class Extend extends DashboardPageController
                  * Update Entry
                  */
 
+                $socialIcon->setSite($this->getSite());
                 $socialIcon->setName($this->request->request->get("name"));
                 $socialIcon->setHandle($this->request->request->get("handle"));
                 $socialIcon->setIcon(File::getByID($this->request->request->get("icon")));
@@ -169,7 +171,7 @@ class Extend extends DashboardPageController
     public function view()
     {
         /** @var $socialIcons SocialIcon[] */
-        $socialIcons = $this->entityManager->getRepository(SocialIcon::class)->findAll();
+        $socialIcons = $this->entityManager->getRepository(SocialIcon::class)->findBy(["site" => $this->getSite()]);
 
         $header = new HeaderController();
 

@@ -12,12 +12,14 @@ namespace Concrete\Package\SocialIconsExtended;
 
 use Bitter\SocialIconsExtended\Installer\Installer;
 use Bitter\SocialIconsExtended\Provider\ServiceProvider;
+use Concrete\Core\Database\EntityManager\Provider\ProviderAggregateInterface;
+use Concrete\Core\Database\EntityManager\Provider\StandardPackageProvider;
 use Concrete\Core\Package\Package;
 
-class Controller extends Package
+class Controller extends Package implements ProviderAggregateInterface
 {
     protected $pkgHandle = 'social_icons_extended';
-    protected $pkgVersion = '1.5.0';
+    protected $pkgVersion = '1.6.0';
     protected $appVersionRequired = '9.0.0';
     protected $pkgAutoloaderRegistries = [
         'src/Bitter/SocialIconsExtended' => 'Bitter\SocialIconsExtended',
@@ -31,6 +33,13 @@ class Controller extends Package
     public function getPackageDescription()
     {
         return t('Extend the social services on your site by any other social service. You can add an SVG icon for each defined service.');
+    }
+
+    public function getEntityManagerProvider()
+    {
+        return new StandardPackageProvider($this->app, $this, [
+            'src/Bitter/SocialIconsExtended/Entity' => 'Bitter\SocialIconsExtended\Entity'
+        ]);
     }
 
     public function on_start()

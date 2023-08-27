@@ -10,6 +10,8 @@
 
 namespace Bitter\SocialIconsExtended;
 
+use Concrete\Core\Site\Service;
+use Doctrine\ORM\EntityManagerInterface;
 use League\Flysystem\Filesystem;
 use League\Flysystem\Adapter\Local;
 use Bitter\SocialIconsExtended\Entity\SocialIcon;
@@ -18,7 +20,6 @@ use Concrete\Core\Entity\File\File;
 use Concrete\Core\Entity\File\Version;
 use Concrete\Core\File\Importer;
 use Doctrine\DBAL\Connection;
-use Doctrine\ORM\EntityManager;
 use Concrete\Core\Http\Client\Client;
 use Zend\Http\Request;
 use Zend\Http\Response;
@@ -39,7 +40,7 @@ class FontGenerator
     /** @var \Stash\Pool */
     protected $expensiveCache;
 
-    public function __construct(Application $app, EntityManager $entityManager, Client $client, Importer $importer, Connection $db)
+    public function __construct(Application $app, EntityManagerInterface $entityManager, Client $client, Importer $importer)
     {
         $this->app = $app;
         $this->entityManager = $entityManager;
@@ -49,7 +50,7 @@ class FontGenerator
         $this->config = $this->app->make("config");
         $this->expensiveCache = $this->app->make('cache/expensive');
         $this->importer = $importer;
-        $this->db = $db;
+        $this->db = $this->entityManager->getConnection();
     }
 
     public function generateFonts()
@@ -74,7 +75,7 @@ class FontGenerator
             }
         }
 
-        $this->db->executeQuery("TRUNCATE TABLE SocialIconExtendedFonts");
+        $this->db->executeQuery("DELETE FROM SocialIconExtendedFonts");
 
         /*
          * On a first try i was generating a SVG font contains all glyphs with:
@@ -99,8 +100,13 @@ class FontGenerator
 
         $glyphs = [];
 
+
+        /** @var Service $siteService */
+        $siteService = $this->app->make(Service::class);
+        $site = $siteService->getActiveSiteForEditing();
+
         /** @var $socialIcons SocialIcon[] */
-        $socialIcons = $this->entityManager->getRepository(SocialIcon::class)->findAll();
+        $socialIcons = $this->entityManager->getRepository(SocialIcon::class)->findBy(["site" => $site]);
 
         $ascent = 850;
         $descent = -150;
@@ -292,14 +298,14 @@ class FontGenerator
              * Clear caches
              */
 
-            $this->expensiveCache->getItem("SocialIconsExtended/CssCache")->clear();
+            $this->expensiveCache->getItem("SocialIconsExtended/CssCache/" . $site->getSiteID())->clear();
 
             /*
              * Update config
              */
 
             /** @var $socialIcons SocialIcon[] */
-            $socialIcons = $this->entityManager->getRepository(SocialIcon::class)->findAll();
+            $socialIcons = $this->entityManager->getRepository(SocialIcon::class)->findBy(["site" => $site]);
 
             $additionalServices = [];
 
@@ -314,13 +320,13 @@ class FontGenerator
             $this->config->save('concrete.social.additional_services', $additionalServices);
 
         } else {
-            $this->db->executeQuery("TRUNCATE TABLE SocialIconExtendedFonts");
+            $this->db->executeQuery("DELETE FROM SocialIconExtendedFonts");
 
             /*
              * Clear caches
              */
 
-            $this->expensiveCache->getItem("SocialIconsExtended/CssCache")->clear();
+            $this->expensiveCache->getItem("SocialIconsExtended/CssCache/" . $site->getSiteID())->clear();
         }
 
     }
