@@ -14,9 +14,9 @@ use Bitter\SocialIconsExtended\RouteList;
 use Concrete\Core\Application\Application;
 use Concrete\Core\Application\ApplicationAwareInterface;
 use Concrete\Core\Application\ApplicationAwareTrait;
+use Concrete\Core\Config\Repository\Repository;
 use Concrete\Core\Package\PackageService;
 use Concrete\Core\Site\Service;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 use Concrete\Core\Routing\RouterInterface;
 use Concrete\Core\Support\Facade\Url;
 use Concrete\Core\View\View;
@@ -26,6 +26,7 @@ use Concrete\Core\Entity\File\File;
 use Concrete\Core\Http\Response;
 use Bitter\SocialIconsExtended\Entity\SocialIcon;
 use Concrete\Core\Entity\File\Version;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ServiceProvider implements ApplicationAwareInterface
 {
@@ -38,7 +39,7 @@ class ServiceProvider implements ApplicationAwareInterface
     /** @var \Concrete\Core\Package\Package */
     protected $pkg;
 
-    public function __construct(Application $app, EventDispatcher $dispatcher, EntityManager $entityManager, PackageService $packageService)
+    public function __construct(Application $app, EventDispatcherInterface $dispatcher, EntityManager $entityManager, PackageService $packageService)
     {
         $this->app = $app;
         $this->dispatcher = $dispatcher;
@@ -49,21 +50,22 @@ class ServiceProvider implements ApplicationAwareInterface
 
     public function register()
     {
-        /*
-         * Inject Code
-         */
-
-        $this->dispatcher->addListener('on_before_render', function () {
+        $this->dispatcher->addListener('on_before_dispatch', function () {
             $view = View::getInstance();
-
-            $items = [];
 
             /** @var Service $siteService */
             $siteService = $this->app->make(Service::class);
             $site = $siteService->getSite();
+            /** @var Repository $config */
+            /** @noinspection PhpUnhandledExceptionInspection */
+            $config = $this->app->make(Repository::class);
 
             /** @var $socialIcons SocialIcon[] */
             $socialIcons = $this->entityManager->getRepository(SocialIcon::class)->findBy(["site" => $site]);
+
+            $items = [];
+
+            $additionalServices = $config->get("concrete.social.additional_services", []);
 
             foreach ($socialIcons as $socialIcon) {
                 if ($socialIcon->getIcon() instanceof File) {
@@ -76,10 +78,18 @@ class ServiceProvider implements ApplicationAwareInterface
                                 "id" => $socialIcon->getId(),
                                 "handle" => $socialIcon->getHandle()
                             ];
+
+                            $additionalServices[] = [
+                                $socialIcon->getHandle(),
+                                $socialIcon->getName(),
+                                "custom-icon fa fa-" . $socialIcon->getFontAwesomeHandle()
+                            ];
                         }
                     }
                 }
             }
+
+            $config->set("concrete.social.additional_services", $additionalServices);
 
             if (count($items) > 0) {
                 sort($items);
@@ -92,38 +102,6 @@ class ServiceProvider implements ApplicationAwareInterface
                         h(Url::to("/bitter/social-icons-extended.css")->setQuery(["ts" => $hash]))
                     )
                 );
-            }
-        });
-
-        /**
-         * Hook file delete event
-         */
-
-        $this->dispatcher->addListener('on_file_delete', function ($argument) {
-            /** @var $argument \Concrete\Core\File\Event\DeleteFile */
-
-            /** @var $entityManager EntityManager */
-            $entityManager = $this->app->make(EntityManager::class);
-
-            $file = $argument->getFileObject();
-
-            if ($file instanceof File) {
-                /*
-                 * Check if there is are icon entities associated with the file
-                 */
-
-                /** @var $associatedIconEntities SocialIcon[] */
-                $associatedIconEntities = $entityManager->getRepository(SocialIcon::class)->findBy(["icon" => $file]);
-
-                if (count($associatedIconEntities) > 0) {
-                    foreach ($associatedIconEntities as $associatedIconEntity) {
-                        if ($associatedIconEntity instanceof SocialIcon) {
-                            // If yes - delete
-                            $entityManager->remove($associatedIconEntity);
-                            $entityManager->flush();
-                        }
-                    }
-                }
             }
         });
 

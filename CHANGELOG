@@ -1,3 +1,7 @@
+Version 1.6.1
+==================================================
+- Switch to new architecture create mask images instead of generating fonts
+
 Version 1.6.0
 ==================================================
 - Add help dialog

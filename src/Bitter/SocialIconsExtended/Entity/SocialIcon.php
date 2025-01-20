@@ -14,7 +14,6 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\EntityListeners({"\Bitter\SocialIconsExtended\Listeners\IconDelete\RemoveIconFile"})
  * @ORM\Table(name="SocialIcon")
  */
 class SocialIcon

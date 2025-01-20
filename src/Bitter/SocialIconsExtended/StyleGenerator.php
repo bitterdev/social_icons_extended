@@ -12,8 +12,6 @@ namespace Bitter\SocialIconsExtended;
 
 use Bitter\SocialIconsExtended\Entity\SocialIcon;
 use Concrete\Core\Application\Application;
-use Concrete\Core\Entity\File\File;
-use Concrete\Core\Entity\File\Version;
 use Concrete\Core\Site\Service;
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManager;
@@ -23,7 +21,6 @@ class StyleGenerator
 
     protected $app;
     protected $entityManager;
-    /** @var \Stash\Pool */
     protected $expensiveCache;
     protected $db;
 
@@ -31,95 +28,64 @@ class StyleGenerator
     {
         $this->app = $app;
         $this->entityManager = $entityManager;
+        /** @noinspection PhpUnhandledExceptionInspection */
         $this->expensiveCache = $this->app->make('cache/expensive');
         $this->db = $db;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function generateCSS()
+    public function generateCSS(): string
     {
         /*
          * Check if CSS is already cached?
          */
         /** @var Service $siteService */
+        /** @noinspection PhpUnhandledExceptionInspection */
         $siteService = $this->app->make(Service::class);
         $site = $siteService->getSite();
 
         $cacheObject = $this->expensiveCache->getItem("SocialIconsExtended/CssCache/" . $site->getSiteID());
 
-        if ($cacheObject->isMiss()) {
+        if ($cacheObject->isMiss() || true) {
 
             /** @var $socialIcons SocialIcon[] */
+            /** @noinspection PhpUnhandledExceptionInspection */
             $socialIcons = $this->entityManager->getRepository(SocialIcon::class)->findBy(["site" => $site]);
+
+            $css = "";
 
             /*
              * Generate the CSS
              */
 
             if (count($socialIcons) > 0) {
-
-                $fontTypeMapping = [
-                    "eot" => 'embedded-opentype',
-                    "woff2" => 'woff2',
-                    "woff" => 'woff',
-                    "ttf" => 'truetype',
-                    "svg" => 'svg'
-                ];
-
-                $fontCss = "";
-
-                foreach ($this->db->fetchAll("SELECT fID, fontFormat FROM SocialIconExtendedFonts") as $row) {
-                    /** @var $file File */
-                    $file = \Concrete\Core\File\File::getByID($row["fID"]);
-
-                    if ($file instanceof File) {
-                        $fileVersion = $file->getApprovedVersion();
-
-                        if ($fileVersion instanceof Version) {
-                            $fontCss .= sprintf(
-                                "%surl('%s') format('%s')",
-                                (strlen($fontCss) > 0 ? ",\n  " : ""),
-                                $fileVersion->getURL(),
-                                $fontTypeMapping[$row["fontFormat"]]
-                            );
-                        }
-                    }
-                }
-
-                $css = sprintf(
-                    "@font-face {\n" .
-                    "  font-family: \"SocialIconsExtended\";\n" .
-                    "  src: %s;\n" .
-                    "}\n\n",
-
-                    $fontCss
-                );
-
                 foreach ($socialIcons as $socialIcon) {
                     $css .= sprintf(
+                        ".fa.fa-%s {\n" .
+                        "position: relative;\n" .
+                        "display: inline-block;\n" .
+                        "width: 16px;\n" .
+                        "height: 16px;\n" .
+                        "}\n\n" .
                         ".fa.fa-%s::before {\n" .
-                        "  font-family: 'SocialIconsExtended';\n" .
-                        "  speak: none;\n" .
-                        "  font-style: normal;\n" .
-                        "  font-weight: normal;\n" .
-                        "  font-variant: normal;\n" .
-                        "  text-transform: none;\n" .
-                        "  line-height: 1;\n" .
-                        "  -webkit-font-smoothing: antialiased;\n" .
-                        "  -moz-osx-font-smoothing: grayscale;\n" .
-                        "  content: \"\\%s\";\n" .
+                        "content: \"\";\n" .
+                        "position: absolute;\n" .
+                        "background-color: var(--bs-body-color);\n" .
+                        "-webkit-mask-image: url(%s);\n" .
+                        "mask-image: url(%s);\n" .
+                        "mask-repeat: no-repeat;\n" .
+                        "mask-position: center;\n" .
+                        "mask-size: cover;\n" .
+                        "width: 16px;\n" .
+                        "height: 16px;\n" .
                         "}\n\n",
 
                         $socialIcon->getFontAwesomeHandle(),
-                        dechex($socialIcon->getUnicodeCode())
+                        $socialIcon->getFontAwesomeHandle(),
+                        h($socialIcon->getIcon()->getApprovedVersion()->getURL()),
+                        h($socialIcon->getIcon()->getApprovedVersion()->getURL())
                     );
                 }
 
-            } else {
-                $css = "";
             }
 
             /*

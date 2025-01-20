@@ -19,7 +19,7 @@ use Concrete\Core\Package\Package;
 class Controller extends Package implements ProviderAggregateInterface
 {
     protected $pkgHandle = 'social_icons_extended';
-    protected $pkgVersion = '1.6.0';
+    protected $pkgVersion = '1.6.1';
     protected $appVersionRequired = '9.0.0';
     protected $pkgAutoloaderRegistries = [
         'src/Bitter/SocialIconsExtended' => 'Bitter\SocialIconsExtended',
