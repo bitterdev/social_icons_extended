@@ -1,5 +1,6 @@
 {
   "name": "bitter/social_icons_extended",
+  "description": "Extend the social services on your site by any other social service. You can add an SVG icon for each defined service.",
   "type": "concrete5-package",
   "autoload": {
     "psr-4": {
