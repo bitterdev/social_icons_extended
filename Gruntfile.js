@@ -11,6 +11,11 @@ var packageName = "social_icons_extended";
 module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+        exec: {
+          composer_install: {
+            cmd: 'composer install'
+          }
+        },
         version: {
             php: {
                 options: {
@@ -64,8 +69,7 @@ module.exports = function (grunt) {
             }
         },
         clean: {
-            dist: ['dist'],
-            composer: ['vendor', 'composer.lock']
+            dist: ['dist']
         }
     });
 
@@ -73,6 +77,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-version');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-exec');
 
     grunt.registerTask('default', ['clean:dist', 'copy', 'version', 'compress:main', 'clean:dist']);
 };
