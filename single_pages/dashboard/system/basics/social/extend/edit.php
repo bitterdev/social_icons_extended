@@ -24,6 +24,8 @@ $fileManager = $app->make('helper/concrete/file_manager');
     <?php \Concrete\Core\View\View::element("dashboard/help", [], "social_icons_extended"); ?>
 </div>
 
+<?php \Concrete\Core\View\View::element("dashboard/did_you_know", [], "social_icons_extended"); ?>
+
 <form action="#" method="post">
     <?php echo $token->output('save_icon'); ?>
 
